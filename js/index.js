@@ -83,11 +83,11 @@ var computeRowsFromEvt = function (evt) {
 
 //tracking hack to know which element is right clicked
 var lastEvt=null;
-document.onmousedown = function(evt){
+document.addEventListener('mousedown', function(evt){
   if( evt.button == 2 ) {
     lastEvt = evt;
   }
-};
+});
 
 chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
   if (msg.action !== 'contextRequestTable' || !lastEvt) return;
