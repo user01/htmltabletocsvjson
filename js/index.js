@@ -81,6 +81,22 @@ var computeRowsFromEvt = function (evt) {
   return csvRows;
 }
 
+var rowToCSV = function(row){
+  var fixedRow = _.map(row,function(elm){
+    if (typeof elm !== 'string') return '';
+    if (elm.indexOf(',') < 0 && elm.indexOf('"') < 0) return elm;
+    return '"' + elm.replace(/"/g,'""') + '"';
+  });
+  var fullText = fixedRow.join(',');
+  return fullText;
+}
+
+var arrayToCSV = function(rowArr) {
+  var rows = _.map(rowArr,rowToCSV);
+  return rows.join('\n');
+}
+
+
 //tracking hack to know which element is right clicked
 var lastEvt=null;
 document.addEventListener('mousedown', function(evt){
@@ -101,7 +117,7 @@ chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
   } else if (msg.actionId === 'toJsonMini') {
     finishedText = JSON.stringify(rowArr);
   } else {
-    finishedText = _.map(rowArr,function(row){return row.join(',');}).join('\n');
+    finishedText = arrayToCSV(rowArr);
   }
   finishedText = finishedText.trim();
   if (finishedText === '') return;
