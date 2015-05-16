@@ -37,14 +37,15 @@ chrome.contextMenus.onClicked.addListener(function(data){
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
   if (message.action !== 'newpage') return;
   var data = message.data ? message.data : '';
-  if (data.length < 2097000){
-    chrome.tabs.create({url: 'data:text;base64,'+btoa(message.data)});
+  var encoded = encodeURI(data);
+  if (encoded.length < 2097000){
+    chrome.tabs.create({url: 'data:text;utf8,'+encoded});
   } else {
     chrome.tabs.create({url : 'blankpage.html'}, function(tab) {
       chrome.tabs.sendMessage(tab.id,
         {
           action: "csv",
-          data: message.data
+          data: data
         },
         function(response) {});
     });
