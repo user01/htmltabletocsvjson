@@ -36,12 +36,18 @@ chrome.contextMenus.onClicked.addListener(function(data){
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
   if (message.action !== 'newpage') return;
-  chrome.tabs.create({url : 'blankpage.html'}, function(tab) {
-    chrome.tabs.sendMessage(tab.id,
-      {
-        action: "csv",
-        data: message.data
-      },
-      function(response) {});
-  });
+  var data = message.data ? message.data : '';
+  if (data.length < 2097000){
+    chrome.tabs.create({url: 'data:text;base64,'+btoa(message.data)});
+  } else {
+    chrome.tabs.create({url : 'blankpage.html'}, function(tab) {
+      chrome.tabs.sendMessage(tab.id,
+        {
+          action: "csv",
+          data: message.data
+        },
+        function(response) {});
+    });
+  }
+
 });
