@@ -1,7 +1,7 @@
 {
   "name": "Table to CSV/JSON",
   "short_name": "HTMLTableConverter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Codex10",
   "description": "Converts HTML tables in the page into csv or json",
   "background": {
