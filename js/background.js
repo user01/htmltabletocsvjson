@@ -2,22 +2,24 @@
 
 chrome.runtime.onInstalled.addListener(function() {
 
-var id = chrome.contextMenus.create({
-  "title": "to CSV",
-  "contexts":["page","selection","link","editable","image","video","audio"],
-  'id':'toCsv'
-});
+  chrome.contextMenus.create({
+    "title": "to CSV",
+    "contexts":["page","selection","link","editable","image","video","audio"],
+    'id':'toCsv'
+  });
 
-var id2 = chrome.contextMenus.create({
-  "title": "to JSON Formatted",
-  "contexts":["page","selection","link","editable","image","video","audio"],
-  'id':'toJsonPretty'
-});
+  chrome.contextMenus.create({
+    "title": "to JSON Formatted",
+    "contexts":["page","selection","link","editable","image","video","audio"],
+    'id':'toJsonPretty'
+  });
 
-var id3 = chrome.contextMenus.create({
-  "title": "to JSON Minified",
-  "contexts":["page","selection","link","editable","image","video","audio"],
-  'id':'toJsonMini'
+  chrome.contextMenus.create({
+    "title": "to JSON Minified",
+    "contexts":["page","selection","link","editable","image","video","audio"],
+    'id':'toJsonMini'
+  });
+
 });
 
 chrome.contextMenus.onClicked.addListener(function(data){
@@ -42,6 +44,4 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
       },
       function(response) {});
   });
-});
-
 });
