@@ -14,7 +14,8 @@
       "js": [
         "js/lodash.min.js",
         "js/index.js"
-      ]
+      ],
+      "all_frames": true
     }
   ],
   "permissions" : [
