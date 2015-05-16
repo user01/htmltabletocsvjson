@@ -1,4 +1,7 @@
 
+
+chrome.runtime.onInstalled.addListener(function() {
+
 var id = chrome.contextMenus.create({
   "title": "to CSV",
   "contexts":["page","selection","link","editable","image","video","audio"],
@@ -39,4 +42,6 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
       },
       function(response) {});
   });
+});
+
 });
